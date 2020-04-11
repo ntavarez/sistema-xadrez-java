@@ -31,13 +31,13 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-	// https://stackoverflow.com/questions/2979383/java-clear-the-console
-	
+	// método para limpar tela a cada rodada. mais em: https://stackoverflow.com/questions/2979383/java-clear-the-console
 	public static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 		}
 	
+	//método que lê posição informada pela linha e coluna, tratando a exceção de posição inválida caso seja digitado uma combinação fora do intervalo determinado
 	public static PosicaoXadrez lerPosicaoXadrez(Scanner sc) {
 		try {
 			String s = sc.nextLine();
@@ -49,6 +49,7 @@ public class UI {
 		}
 	}
 
+	//método para imprimir o tabuleiro de xadrez
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -60,6 +61,7 @@ public class UI {
 		System.out.println("  a b c d e f g h");
 	}
 
+	//imprimindo peças no tabuleiro de acordo com a cor. para os espaços vazios, imprime somente um "-"
 	private static void printPeca(PecaXadrez peca) {
 		if (peca == null) {
 			System.out.print("-");

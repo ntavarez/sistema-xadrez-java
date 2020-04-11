@@ -17,6 +17,7 @@ public class Programa {
 
 		while (true) {
 
+			//limpeza da tela e em seguida solicitaçãopara usuário informar posição de origem e destino no tabuleiro
 			try {
 				UI.clearScreen();
 				UI.printTabuleiro(partida.getPecas());
@@ -29,6 +30,7 @@ public class Programa {
 				PosicaoXadrez destino = UI.lerPosicaoXadrez(sc);
 
 				PecaXadrez pecaCapturada = partida.movimentoPecaXadrez(origem, destino);
+				
 			} catch (XadrezException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
