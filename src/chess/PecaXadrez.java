@@ -1,6 +1,7 @@
 package chess;
 
 import board.Peca;
+import board.Posicao;
 import board.Tabuleiro;
 
 public abstract class PecaXadrez extends Peca {
@@ -14,6 +15,12 @@ public abstract class PecaXadrez extends Peca {
 
 	public Cor getCor() {
 		return cor;
+	}
+	
+	//método para identificar a peça adversária no tabuleiro
+	protected boolean existeUmaPecaInimiga(Posicao posicao) {
+		PecaXadrez p = (PecaXadrez) getTabuleiro().peca(posicao);
+		return p != null && p.getCor() != cor;
 	}
 	
 }
