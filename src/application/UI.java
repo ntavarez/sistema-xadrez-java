@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import chess.Cor;
+import chess.PartidaXadrez;
 import chess.PecaXadrez;
 import chess.PosicaoXadrez;
 
@@ -47,6 +48,13 @@ public class UI {
 		} catch (RuntimeException e) {
 			throw new InputMismatchException("Erro ao ler PosicaoXadrez. Os valores válidos são de a1 a h8.");
 		}
+	}
+	
+	public static void printPartida(PartidaXadrez partida) {
+		printTabuleiro(partida.getPecas());
+		System.out.println();
+		System.out.println("Turno: " + partida.getTurno());
+		System.out.println("Esperando jogador: " + partida.getJogadorAtual());
 	}
 
 	//método para imprimir o tabuleiro de xadrez

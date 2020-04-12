@@ -8,12 +8,24 @@ import chess.pieces.Torre;
 
 public class PartidaXadrez {
 	
+	private int turno;
+	private Cor jogadorAtual;
 	private Tabuleiro tabuleiro;
 	
 	//criando tabuleiro
 	public PartidaXadrez() {
 		tabuleiro = new Tabuleiro(8,8);
+		turno = 1;
+		jogadorAtual = Cor.BRANCO;
 		setupInicial();
+	}
+	
+	public int getTurno() {
+		return turno;
+	}
+	
+	public Cor getJogadorAtual() {
+		return jogadorAtual;
 	}
 	
 	//
@@ -41,6 +53,7 @@ public class PartidaXadrez {
 		validarPosicaoOrigem(origem);
 		validarPosicaoDestino(origem, destino);
 		Peca pecaCapturada = fazerMovimento(origem, destino);
+		proximoTurno();
 		return (PecaXadrez) pecaCapturada;
 	}
 	
@@ -57,6 +70,9 @@ public class PartidaXadrez {
 		if (!tabuleiro.pecaExistente(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem");
 		}
+		if (jogadorAtual != ((PecaXadrez)tabuleiro.peca(posicao)).getCor()) {
+			throw new XadrezException("A peça escolhida não é sua");
+		}
 		if(!tabuleiro.peca(posicao).existeMovimentoPossivel()) {
 			throw new XadrezException("Não existe movimentos possíveis para a peça escolhida");
 		}
@@ -67,6 +83,12 @@ public class PartidaXadrez {
 		if(!tabuleiro.peca(origem).movimentoPossivel(destino)) {
 			throw new XadrezException("A peça escolhida não pode se mover para a posição de destino");
 		}
+	}
+	
+	//definindo com qual jogador está o turno atual
+	private void proximoTurno() {
+		turno ++;
+		jogadorAtual = (jogadorAtual == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO; //Caso o atual jogador do turno seja do Branco, alterar o próximo para Preto. Caso não, alterar para Branco. 
 	}
 	
 	//definindo posição e peça a ser movimentada no tabuleiro

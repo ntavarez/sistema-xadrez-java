@@ -20,7 +20,8 @@ public class Programa {
 			//limpeza da tela e em seguida solicitaçãopara usuário informar posição de origem e destino no tabuleiro
 			try {
 				UI.clearScreen();
-				UI.printTabuleiro(partida.getPecas());
+				//UI.printTabuleiro(partida.getPecas());
+				UI.printPartida(partida);
 				System.out.println();
 				System.out.println("Origem: ");
 				PosicaoXadrez origem = UI.lerPosicaoXadrez(sc);
