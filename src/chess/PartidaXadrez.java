@@ -27,6 +27,13 @@ public class PartidaXadrez {
 		return mat;
 	}
 	
+	//método para imprimir posições possíveis a partir da posição de origem
+	public boolean[][] movimentosPossiveis(PosicaoXadrez posicaoOrigem){
+		Posicao posicao = posicaoOrigem.paraPosicao();
+		validarPosicaoOrigem(posicao);
+		return tabuleiro.peca(posicao).movimentosPossiveis();
+	}
+	
 	//
 	public PecaXadrez movimentoPecaXadrez (PosicaoXadrez posicaoOrigem, PosicaoXadrez posicaoDestino) {
 		Posicao origem = posicaoOrigem.paraPosicao();
