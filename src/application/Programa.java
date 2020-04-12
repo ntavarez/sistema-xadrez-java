@@ -18,7 +18,7 @@ public class Programa {
 		PartidaXadrez partida = new PartidaXadrez();
 		List<PecaXadrez> capturadas = new ArrayList<>();
 
-		while (true) {
+		while (!partida.getXequeMate()) {
 
 			//limpeza da tela e em seguida solicitaçãopara usuário informar posição de origem e destino no tabuleiro
 			try {
@@ -54,5 +54,7 @@ public class Programa {
 			}
 
 		}
+		UI.clearScreen();
+		UI.printPartida(partida, capturadas);
 	}
 }
