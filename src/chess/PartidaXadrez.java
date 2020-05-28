@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import board.Peca;
 import board.Posicao;
 import board.Tabuleiro;
+import chess.pieces.Peao;
 import chess.pieces.Rei;
 import chess.pieces.Torre;
 
@@ -56,7 +57,7 @@ public class PartidaXadrez {
 		return mat;
 	}
 
-	// método para imprimir posições possíveis a partir da posição de origem
+	// mï¿½todo para imprimir posiï¿½ï¿½es possï¿½veis a partir da posiï¿½ï¿½o de origem
 	public boolean[][] movimentosPossiveis(PosicaoXadrez posicaoOrigem) {
 		Posicao posicao = posicaoOrigem.paraPosicao();
 		validarPosicaoOrigem(posicao);
@@ -71,14 +72,14 @@ public class PartidaXadrez {
 		validarPosicaoDestino(origem, destino);
 		Peca pecaCapturada = fazerMovimento(origem, destino);
 
-		if (testeCheque(jogadorAtual)) {
+		if (testeXeque(jogadorAtual)) {
 			desfazerMovimento(origem, destino, pecaCapturada);
-			throw new XadrezException("Você não pode se colocar em cheque");
+			throw new XadrezException("Vocï¿½ nï¿½o pode se colocar em cheque");
 		}
 
-		xeque = (testeCheque(oponente(jogadorAtual))) ? true : false; // testando a condição de cheque do jogador
-																		// adversário
-		if (testeChequeMate(oponente(jogadorAtual))) {
+		xeque = (testeXeque(oponente(jogadorAtual))) ? true : false; // testando a condiï¿½ï¿½o de cheque do jogador
+																		// adversï¿½rio
+		if (testeXequeMate(oponente(jogadorAtual))) {
 			xequeMate = true;
 		} else {
 			proximoTurno();
@@ -87,9 +88,9 @@ public class PartidaXadrez {
 		return (PecaXadrez) pecaCapturada;
 	}
 
-	// método para alterar posições das peças no momento da captura, primeiro remove
-	// uma peça da posição de origem para depois inseri-la na posição da peça
-	// capturada, que também será removida da sua atual posição
+	// mï¿½todo para alterar posiï¿½ï¿½es das peï¿½as no momento da captura, primeiro remove
+	// uma peï¿½a da posiï¿½ï¿½o de origem para depois inseri-la na posiï¿½ï¿½o da peï¿½a
+	// capturada, que tambï¿½m serï¿½ removida da sua atual posiï¿½ï¿½o
 	private Peca fazerMovimento(Posicao origem, Posicao destino) {
 		PecaXadrez p = (PecaXadrez) tabuleiro.removerPeca(origem);
 		p.incrementarContagemMovimentos();
@@ -115,36 +116,36 @@ public class PartidaXadrez {
 		}
 	}
 
-	// validando se existe alguma peça na posição dela de origem e também se existe
-	// movimentos possíveis para serem feitos
+	// validando se existe alguma peï¿½a na posiï¿½ï¿½o dela de origem e tambï¿½m se existe
+	// movimentos possï¿½veis para serem feitos
 	private void validarPosicaoOrigem(Posicao posicao) {
 		if (!tabuleiro.pecaExistente(posicao)) {
-			throw new XadrezException("Não existe peça na posição de origem");
+			throw new XadrezException("Nï¿½o existe peï¿½a na posiï¿½ï¿½o de origem");
 		}
 		if (jogadorAtual != ((PecaXadrez) tabuleiro.peca(posicao)).getCor()) {
-			throw new XadrezException("A peça escolhida não é sua");
+			throw new XadrezException("A peï¿½a escolhida nï¿½o ï¿½ sua");
 		}
 		if (!tabuleiro.peca(posicao).existeMovimentoPossivel()) {
-			throw new XadrezException("Não existe movimentos possíveis para a peça escolhida");
+			throw new XadrezException("Nï¿½o existe movimentos possï¿½veis para a peï¿½a escolhida");
 		}
 	}
 
-	// validando se a posição de destino está apta para receber uma peça
+	// validando se a posiï¿½ï¿½o de destino estï¿½ apta para receber uma peï¿½a
 	private void validarPosicaoDestino(Posicao origem, Posicao destino) {
 		if (!tabuleiro.peca(origem).movimentoPossivel(destino)) {
-			throw new XadrezException("A peça escolhida não pode se mover para a posição de destino");
+			throw new XadrezException("A peï¿½a escolhida nï¿½o pode se mover para a posiï¿½ï¿½o de destino");
 		}
 	}
 
-	// definindo com qual jogador está o turno atual
+	// definindo com qual jogador estï¿½ o turno atual
 	private void proximoTurno() {
 		turno++;
 		jogadorAtual = (jogadorAtual == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO; // Caso o atual jogador do turno seja do
-																				// Branco, alterar o próximo para Preto.
-																				// Caso não, alterar para Branco.
+																				// Branco, alterar o prï¿½ximo para Preto.
+																				// Caso nï¿½o, alterar para Branco.
 	}
 
-	// definindo posição e peça a ser movimentada no tabuleiro
+	// definindo posiï¿½ï¿½o e peï¿½a a ser movimentada no tabuleiro
 	private void colocandoNovaPeca(char coluna, int linha, PecaXadrez peca) {
 		tabuleiro.colocarPeca(peca, new PosicaoXadrez(coluna, linha).paraPosicao());
 		pecasNoTabuleiro.add(peca);
@@ -162,10 +163,10 @@ public class PartidaXadrez {
 				return (PecaXadrez) p;
 			}
 		}
-		throw new IllegalStateException("Não existe o Rei da cor" + cor + "no tabuleiro");
+		throw new IllegalStateException("Nï¿½o existe o Rei da cor" + cor + "no tabuleiro");
 	}
 
-	private boolean testeCheque(Cor cor) {
+	private boolean testeXeque(Cor cor) {
 		Posicao posicaoRei = rei(cor).getPosicaoXadrez().paraPosicao();
 		List<Peca> pecasOponente = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == oponente(cor))
 				.collect(Collectors.toList());
@@ -178,8 +179,8 @@ public class PartidaXadrez {
 		return false;
 	}
 
-	private boolean testeChequeMate(Cor cor) {
-		if (!testeCheque(cor)) {
+	private boolean testeXequeMate(Cor cor) {
+		if (!testeXeque(cor)) {
 			return false;
 		}
 		List<Peca> lista = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == cor)
@@ -192,8 +193,8 @@ public class PartidaXadrez {
 						Posicao origem = ((PecaXadrez) p).getPosicaoXadrez().paraPosicao();
 						Posicao destino = new Posicao(i, j);
 						Peca pecaCapturada = fazerMovimento(origem, destino);
-						boolean testeCheque = testeCheque(cor); // testando se o Rei da cor ainda está em cheque
-						if (!testeCheque) {
+						boolean testeXeque = testeXeque(cor); // testando se o Rei da cor ainda estï¿½ em cheque
+						if (!testeXeque) {
 							return false;
 						}
 					}
@@ -202,22 +203,32 @@ public class PartidaXadrez {
 		return true;
 	}
 
-	// colocando as peças no tabuleiro
+	// colocando as peï¿½as no tabuleiro
 	private void setupInicial() {
 
-		colocandoNovaPeca('c', 1, new Torre(tabuleiro, Cor.BRANCO));
-		colocandoNovaPeca('c', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocandoNovaPeca('d', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocandoNovaPeca('e', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocandoNovaPeca('e', 1, new Torre(tabuleiro, Cor.BRANCO));
-		colocandoNovaPeca('d', 1, new Rei(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('h', 1, new Torre(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('a', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('b', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('c', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('d', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('e', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('f', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('g', 2, new Peao(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('h', 2, new Peao(tabuleiro, Cor.BRANCO));
 
-		colocandoNovaPeca('c', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocandoNovaPeca('c', 8, new Torre(tabuleiro, Cor.PRETO));
-		colocandoNovaPeca('d', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocandoNovaPeca('e', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocandoNovaPeca('e', 8, new Torre(tabuleiro, Cor.PRETO));
-		colocandoNovaPeca('d', 8, new Rei(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('a', 1, new Torre(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('e', 1, new Rei(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('h', 1, new Torre(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('a', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('b', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('c', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('d', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('e', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('f', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('g', 2, new Peao(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('h', 2, new Peao(tabuleiro, Cor.PRETO));
 	}
 
 }
