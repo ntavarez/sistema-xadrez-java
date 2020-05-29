@@ -8,6 +8,7 @@ import board.Peca;
 import board.Posicao;
 import board.Tabuleiro;
 import chess.pieces.Bispo;
+import chess.pieces.Cavalo;
 import chess.pieces.Peao;
 import chess.pieces.Rei;
 import chess.pieces.Torre;
@@ -208,9 +209,11 @@ public class PartidaXadrez {
 	private void setupInicial() {
 
 		colocandoNovaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('b', 1, new Cavalo(tabuleiro, Cor.BRANCO));
 		colocandoNovaPeca('c', 1, new Bispo(tabuleiro, Cor.BRANCO));
 		colocandoNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
 		colocandoNovaPeca('f', 1, new Bispo(tabuleiro, Cor.BRANCO));
+		colocandoNovaPeca('g', 1, new Cavalo(tabuleiro, Cor.BRANCO));
 		colocandoNovaPeca('h', 1, new Torre(tabuleiro, Cor.BRANCO));
 		colocandoNovaPeca('a', 2, new Peao(tabuleiro, Cor.BRANCO));
 		colocandoNovaPeca('b', 2, new Peao(tabuleiro, Cor.BRANCO));
@@ -222,9 +225,11 @@ public class PartidaXadrez {
 		colocandoNovaPeca('h', 2, new Peao(tabuleiro, Cor.BRANCO));
 
 		colocandoNovaPeca('a', 8, new Torre(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('b', 8, new Cavalo(tabuleiro, Cor.PRETO));
 		colocandoNovaPeca('c', 8, new Bispo(tabuleiro, Cor.PRETO));
 		colocandoNovaPeca('e', 8, new Rei(tabuleiro, Cor.PRETO));
 		colocandoNovaPeca('f', 8, new Bispo(tabuleiro, Cor.PRETO));
+		colocandoNovaPeca('g', 8, new Cavalo(tabuleiro, Cor.PRETO));
 		colocandoNovaPeca('h', 8, new Torre(tabuleiro, Cor.PRETO));
 		colocandoNovaPeca('a', 7, new Peao(tabuleiro, Cor.PRETO));
 		colocandoNovaPeca('b', 7, new Peao(tabuleiro, Cor.PRETO));
