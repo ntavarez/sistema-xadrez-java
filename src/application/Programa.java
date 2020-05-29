@@ -44,8 +44,12 @@ public class Programa {
 				}
 				
 				if(partida.getPromocao() != null) {
-					System.out.println("Digita uma peça para promoção (B/C/T/Rn: ");
-					String tipo = sc.nextLine();
+					System.out.println("Digite uma peça para promoção (B/C/T/Rn: ");
+					String tipo = sc.nextLine().toUpperCase();
+					while (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") && !tipo.equals("Rn")) {
+						System.out.println("Valor inválido! Digite uma peça para promoção (B/C/T/Rn: ");
+						tipo = sc.nextLine().toUpperCase();
+					}
 					partida.substituirPecaPromovida(tipo);
 				}
 				
