@@ -20,7 +20,7 @@ public class Programa {
 
 		while (!partida.getXequeMate()) {
 
-			//limpeza da tela e em seguida solicitaçãopara usuário informar posição de origem e destino no tabuleiro
+			//limpeza da tela e em seguida solicitaï¿½ï¿½opara usuï¿½rio informar posiï¿½ï¿½o de origem e destino no tabuleiro
 			try {
 				UI.clearScreen();
 				//UI.printTabuleiro(partida.getPecas());
@@ -31,7 +31,7 @@ public class Programa {
 
 				boolean[][] movimentosPossiveis = partida.movimentosPossiveis(origem);
 				UI.clearScreen();
-				UI.printTabuleiro(partida.getPecas(), movimentosPossiveis); //sobrecarga para imprimir as cores das posições possíveis
+				UI.printTabuleiro(partida.getPecas(), movimentosPossiveis); //sobrecarga para imprimir as cores das posiï¿½ï¿½es possï¿½veis
 				
 				System.out.println();
 				System.out.println("Destino: ");
@@ -41,6 +41,12 @@ public class Programa {
 				
 				if (pecaCapturada != null) {
 					capturadas.add(pecaCapturada);
+				}
+				
+				if(partida.getPromocao() != null) {
+					System.out.println("Digita uma peÃ§a para promoÃ§Ã£o (B/C/T/Rn: ");
+					String tipo = sc.nextLine();
+					partida.substituirPecaPromovida(tipo);
 				}
 				
 			} catch (XadrezException e) {
